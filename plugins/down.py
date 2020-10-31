@@ -47,7 +47,7 @@ async def down_load_media(client, message):
     c_time = time.time()
     while not downloader.isFinished():
         total_length = downloader.filesize if downloader.filesize else None
-        await mes.edit("Yuklanmoqda: %d%%" % (downloader.get_progress_bar()))
+        await mes.edit("Yuklanmoqda:\n"+str(downloader.get_progress_bar()))
         await asyncio.sleep(2)
     if downloader.isFinished():
         print(downloader.isSuccessful())
