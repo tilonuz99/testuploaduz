@@ -45,6 +45,7 @@ async def down_load_media(client, message):
     	await mes.edit("Xatolik: Bunday manzil mavjud emas!")
     	return
     c_time = time.time()
+    display_message = ""
     while not downloader.isFinished():
         total_length = downloader.filesize if downloader.filesize else None
         downloaded = downloader.get_dl_size()
@@ -62,6 +63,7 @@ async def down_load_media(client, message):
         	current_message += f"Vaqt: {estimated_total_time}"
         	if round(diff % 10.00) == 0 and current_message != display_message:
         		await mes.edit(current_message)
+        		display_message = current_message
         		await asyncio.sleep(1)
         except:
         	pass
