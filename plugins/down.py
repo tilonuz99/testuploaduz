@@ -47,8 +47,23 @@ async def down_load_media(client, message):
     c_time = time.time()
     while not downloader.isFinished():
         total_length = downloader.filesize if downloader.filesize else None
-        await mes.edit("Yuklanmoqda:\n"+str(downloader.get_progress_bar()))
-        await asyncio.sleep(2)
+        downloaded = downloader.get_dl_size()
+        now = time.time()
+        diff = now - c_time
+        percentage= downloader.get_progress() * 100
+        speed = downloader.get_speed()
+        elapsed_time = round(diff) * 1000
+        progress_str = "[{0}{1}]\nProgress: {2}%".format(''.join(["█" for i in range(math.floor(percentage / 5))]),''.join(["░" for i in range(20 - math.floor(percentage / 5))]),round(percentage, 2))
+        estimated_total_time = downloader.get_eta(human=True)
+        try:
+        	current_message = f"Yuklab olinmoqda...\n"
+        	current_message += f"{progress_str}\n"
+        	current_message += f"{humanbytes(downloaded)} of {humanbytes(total_length)}\n"
+        	current_message += f"Vaqt: {estimated_total_time}"
+        	if round(diff % 10.00) == 0 and current_message != display_message:
+        		await mes.edit(current_message)
+        except:
+        	pass
     if downloader.isFinished():
         print(downloader.isSuccessful())
         await mes.edit("Yuborilmoqda...")
