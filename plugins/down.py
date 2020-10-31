@@ -62,10 +62,10 @@ async def down_load_media(client, message):
         	current_message += f"Vaqt: {estimated_total_time}"
         	if round(diff % 10.00) == 0 and current_message != display_message:
         		await mes.edit(current_message)
+        		await asyncio.sleep(1)
         except:
         	pass
-    if downloader.isFinished():
-        print(downloader.isSuccessful())
+    if downloader.isSuccessful():
         await mes.edit("Yuborilmoqda...")
         download_file_path = downloader.get_dest()
         if typee(str(kind)) == "v":
