@@ -70,20 +70,10 @@ async def down_load_media(client, message):
     if downloader.isSuccessful():
         await mes.edit("Yuborilmoqda...")
         download_file_path = downloader.get_dest()
-        if typee(str(kind)) == "v":
-        	try:
-        		duration = int(get_sec(getvid(custom_file_name)[0]))
-        		width = int(getvid(custom_file_name)[1])
-        		height = int(getvid(custom_file_name)[2])
-        	except Exception as e:
-        		mes = await mes.edit("Xatolik: Bunday manzil mavjud emas."+str(e))
-        		print(e)
-        		return
-        	send = await client.send_video(mes.chat.id,video=download_file_path,thumb=thumbs,duration=duration,width=width,height=height,progress=progress_for_pyrogram,progress_args=("Yuborilmoqda...",mes,start_time))
-        else:
-        	mes = await mes.edit("Xatolik: Bunday manzil mavjud emas.")
-        	os.remove(download_file_path)
-        	return
+        duration = int(get_sec(getvid(download_file_path)[0]))
+        width = int(getvid(download_file_path)[1])
+        height = int(getvid(download_file_path)[2])
+        send = await client.send_video(mes.chat.id,video=download_file_path,thumb=thumbs,duration=duration,width=width,height=height,progress=progress_for_pyrogram,progress_args=("Yuborilmoqda...",mes,start_time))
         if send:
         	await mes.edit("Yuborildi")
         	os.remove(download_file_path)
